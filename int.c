@@ -2,6 +2,8 @@
 
 #define MAX_INTS 15
 
+//TODO: What actually handles the interrupts
+
 void ham_EmptyInt()
 {
     ASSERT(R_INTMST & 1, "Reached EmptyInt!!! This means you have an INT on, but not set to a function");
