@@ -78,3 +78,33 @@ void ham_intro(void)
   ham_StopIntHandler(0);
   return;
 }
+
+void ham_ResetAll(void)
+{
+  if (intro_done) {
+    ham_InitIntrTable();
+    ham_ResetBg();
+    ham_ResetObj();
+    ham_InitWin();
+    _DAT_04000000 = _DAT_04000000 & 0xf078 | 1; //??
+  }
+  return;
+}
+
+void ham_Init(void)
+{
+  __malloc_heap_end = 0x2040000; //restrict malloc to ewram
+  intro_done = 1;
+  ham_ResetAll();
+  ham_intro();
+  ham_ResetAll();
+  memset((void *)0x6000000,0,0x18000); //clear VRAM
+  _DAT_04000208 = 0; //??
+  return;
+}
+
+
+u32 ham_GetHAMlibVersion(void)
+{
+    return 0x20008;
+}
