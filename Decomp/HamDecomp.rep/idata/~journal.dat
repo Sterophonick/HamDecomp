@@ -3,3 +3,5 @@ IDSET:/libham.a:7f011b6fb94171226795365
 FADD:/libham.a
 IADD:00000001:/libham.a/fx.o
 IDSET:/libham.a/fx.o:7f011b6f394210711236084
+IADD:00000002:/libham.a/ham.o
+IDSET:/libham.a/ham.o:7f0118a6794565572903398
