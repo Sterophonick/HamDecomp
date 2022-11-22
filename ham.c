@@ -29,38 +29,58 @@ void ham_intro(void)
   ballX = 248;
   ballY = 159;
   ham_DrawText(0,0x13,"MULTIBOOT");
-  run_in_mb = 1;
-  ham_DrawText(0x19,0x13,"v%d.%d",2,8);
+  run_in_mb = 1; // always set to multiboot????
+  ham_DrawText(0x19,0x13,"v%d.%d",2,8); //print version
   ham_StartIntHandler(0,vblintroFunc);
   while( true ) {
+
+    //???
     do {
     } while (newframeintro4711 == 0);
+
+    //Do no play sound in multiboot
+    //What was the purpose here?
     if (run_in_mb == 0) {
       ham_UpdateMixer();
     }
+
     if (frameintro4711s < 0x1c) {
-      ballX = ballX + '\x03';
+      ballX += 3; //ball coming towards
     }
     else {
-      ballX = ballX + 0xfd;
+      ballX -= 3; //ball go wheee
     }
+
+    //Play sample when ball go clack
     if ((frameintro4711s == 0x19) && (run_in_mb == 0)) {
       ham_PlaySample(0);
     }
+
+    //logo go down
     if (frameintro4711s - 0x15 < 9) {
       logoY = logoY + 2;
     }
-    ballY = ballY + 0xfe;
+
+    //ball y position
+    ballY = ballY - 2;
+
+    //logo go up
     if (frameintro4711s - 0x1f < 9) {
       logoY = logoY + 0xfe;
     }
+
+    //Set sprite positions
     ham_SetObjXY(spriteBall,ballX,ballY);
     ham_SetObjY(spriteH,logoY);
+
+    //Clear sprits + text
     if (frameintro4711s == 0x3a) {
       ham_DrawText(0x19,0x13,"     ");
       ham_DrawText(0,0x13,"         ");
       ham_DeleteObj(spriteBall);
     }
+
+    //Fade out
     if (0x3c < frameintro4711s) {
       ham_FadePal(1,1);
     }
