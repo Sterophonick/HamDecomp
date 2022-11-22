@@ -1,0 +1,5 @@
+IADD:00000000:/libham.a
+IDSET:/libham.a:7f011b6fb94171226795365
+FADD:/libham.a
+IADD:00000001:/libham.a/fx.o
+IDSET:/libham.a/fx.o:7f011b6f394210711236084

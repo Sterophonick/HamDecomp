@@ -11,9 +11,10 @@ void AssertImplementation
   
   if ((a_Assertion == false) && (_hamlib_assert_to_dbgshow == '\0')) {
     //Resets display controllers
-    R_DISCNT = 0x403;
+    R_DISCNT = M_DISCNT_BGMODE_SET(3) | BG_2;
     ham_RotBgEx(2,0,0,0,0,0,0x100,0x100);
 
+    //Clear Screen
     iVar1 = 0x4aff;
     vramPtr = (u16 *)&MEM_VRAM;
     while ((uVar2 & 0xffff) != 0xffff) {
@@ -22,6 +23,7 @@ void AssertImplementation
       iVar1 = (int)(uVar2 * 0x10000) >> 0x10;
       vramPtr = vramPtr + 1;
     }
+
     AssertDrawStringMode3(10,10,0xffff,"Assertion failed:");
     AssertDrawStringMode3(0x1e,0x14,0xff,a_Expression);
     AssertDrawStringMode3(10,0x1e,0xffff,"In File: ");
@@ -32,9 +34,10 @@ void AssertImplementation
     AssertDrawStringMode3(0x1e,0x50,0xff,a_Message);
     AssertDrawStringMode3(10,0x8c,0xffff,"Press any key to ignore, but remember that");
     AssertDrawStringMode3(10,0x96,0xffff,"VMode and VRam recovery is unlikely");
+
+    //Wait for key press
     while ((~R_CTRLINPUT & 0x3ff) == 0);
   }
-  return;
 }
 
 void AssertDrawStringMode3(uint param_1,int param_2,undefined2 param_3,byte *param_4)
