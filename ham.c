@@ -1,4 +1,16 @@
+#include <stdbool.h>
 #include "mygba.h"
+
+u8 run_in_mb = 0;
+u16 frameintro4711s = 0;
+u8 newframeintro4711 = 0;
+extern u32 __malloc_heap_end;
+u8 intro_done = 0;
+
+extern u16 logo25_ball_Bitmap[];
+extern u8 logo25_Palette[];
+extern u16 logo25_h_Bitmap[];
+extern u16 logo25_Bitmap[];
 
 void vblintroFunc(void) {
     if (!run_in_mb) //Why only sync mixer when not MULTIBOOT?
@@ -106,7 +118,10 @@ void ham_ResetAll(void)
     ham_ResetBg();
     ham_ResetObj();
     ham_InitWin();
-    _DAT_04000000 = _DAT_04000000 & 0xf078 | 1; //??
+
+    //?
+    R_DISCNT &= 0xf078;
+    R_DISCNT |= 1;
   }
   return;
 }
@@ -122,7 +137,6 @@ void ham_Init(void)
   R_INTMST = 0; //Disable IRQs
   return;
 }
-
 
 u32 ham_GetHAMlibVersion(void)
 {

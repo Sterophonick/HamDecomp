@@ -32,7 +32,7 @@ typedef unsigned int chandle;
 #elif __GNUC__ == 3
 	#define LONG_CALL __attribute__ ((long_call))
 #else
-	#error "This version of Krawall is for GCC2/3 only!!"
+	//#error "This version of Krawall is for GCC2/3 only!!"
 #endif
 
 //! Init function.

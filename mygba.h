@@ -289,7 +289,7 @@ void myfunction(void) MEM_FUNC_IN_IWRAM;
 
 // bool is a standard type in cplusplus, but not in c.    
 #ifndef __cplusplus
-typedef     unsigned char           bool;
+//typedef     unsigned char           bool;
 #endif
 typedef     unsigned char           u8;
 typedef     unsigned short int      u16;
@@ -707,7 +707,7 @@ documentation for details
 */
 
 // since v2.52, Krawall is included in HAM :)
-#include "krawall.h"
+//#include "krawall.h"
 // since HAM v3 tUME support is built into HAM!
 #include "tumeric.h"
 
