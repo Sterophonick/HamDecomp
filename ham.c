@@ -1,7 +1,7 @@
 #include "mygba.h"
 
 void vblintroFunc(void) {
-    if (!run_in_mb)
+    if (!run_in_mb) //Why only sync mixer when not MULTIBOOT?
         ham_SyncMixer();
     ham_CopyObjToOAM();
     newframeintro4711 = 1;
@@ -10,13 +10,13 @@ void vblintroFunc(void) {
 
 void ham_intro(void)
 {
-  uchar spriteH;
-  uchar spriteBall;
-  uchar spriteLogo1;
-  uchar spriteLogo2;
-  uchar ballY;
-  uchar ballX;
-  uchar logoY;
+  u8 spriteH;
+  u8 spriteBall;
+  u8 spriteLogo1;
+  u8 spriteLogo2;
+  u8 ballY;
+  u8 ballX;
+  u8 logoY;
 
   ham_InitText(0);
   ham_SetBgMode(0);
@@ -119,12 +119,12 @@ void ham_Init(void)
   ham_intro();
   ham_ResetAll();
   memset((void *)0x6000000,0,0x18000); //clear VRAM
-  _DAT_04000208 = 0; //??
+  R_INTMST = 0; //Disable IRQs
   return;
 }
 
 
 u32 ham_GetHAMlibVersion(void)
 {
-    return 0x20008;
+    return 0x20008; //v2.8
 }
