@@ -135,24 +135,26 @@ void ham_ChangeSampleBitrate(int param_1,undefined2 param_2)
   return;
 }
 
-void ham_PlaySample(int param_1)
+void ham_PlaySample(sample_info *sample)
 
 {
-  int iVar1;
+  int prevSample; //?
 
-  *(undefined *)(param_1 + 0x14) = 1;
+  sample->playing = 1; //sample+0x14
+
+  //the fuck?
   iVar1 = _DAT_00011040;
   if (_DAT_0001103c != 0) {
-    *(undefined4 *)(param_1 + 0x18) = 0;
-    *(int *)(param_1 + 0x1c) = iVar1;
-    *(int *)(_DAT_00011040 + 0x18) = param_1;
-    _DAT_00011040 = param_1;
+    sample->next = 0; //sample+0x18
+    sample->prev = prevSample; //sample+0x1c
+    *(int *)(_DAT_00011040 + 0x18) = sample;
+    _DAT_00011040 = sample;
     return;
   }
-  _DAT_0001103c = param_1;
-  _DAT_00011040 = param_1;
-  *(undefined4 *)(param_1 + 0x1c) = 0;
-  *(undefined4 *)(param_1 + 0x18) = 0;
+  _DAT_0001103c = sample;
+  _DAT_00011040 = sample;
+  sample->prev = 0; //sample+0x1c
+  sample->next = 0; //sample+0x18
   return;
 }
 
